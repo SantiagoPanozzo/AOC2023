@@ -8,14 +8,14 @@ using System.Collections.Generic;
 public class BaseCalibrationFixer(string path) : ICalibrationFixer
 {
     private readonly string _path = path;
-    private List<int> _results = [];
+    private readonly List<int> _results = [];
 
     /// <summary>
     /// Gets all the digits in a string and returns it as a single number.
     /// </summary>
     /// <param name="line"> String to parse </param>
     /// <returns>Int32 of the joined digits of the parsed string.</returns>
-    public int ParseLine(string line)
+    public static int ParseLine(string line)
     {
         var regex = new Regex(@"\d");
         var result = regex.Matches(line)
@@ -37,7 +37,7 @@ public class BaseCalibrationFixer(string path) : ICalibrationFixer
     /// Parse the whole file and get the resulting number.
     /// </summary>
     /// <returns>Result of the parse.</returns>
-    public int[] GetResult()
+    public IEnumerable<int> GetResult()
     {
         if (_results.Count == 0)
             ReadFromFile();
